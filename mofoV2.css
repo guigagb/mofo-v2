@@ -84,7 +84,7 @@
 }
 
 .mofo-modal-main::-webkit-resizer {
-    background: red;
+    background: rgba(0, 0, 0, 0.10);
 }
 
 

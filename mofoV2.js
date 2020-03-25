@@ -1,12 +1,12 @@
-export default (function() {
-// let mofo = (function () {
+//export default (function() {
+let mofo = (function() {
 
     let timeExecAfter = {};
     let dialogs = {
         dialogsOpen: {},
         execAfter: {},
         keyEsc: {},
-        keyDown: {}
+        onKeyDown: {}
     };
 
     function countIsOpen() {
@@ -20,7 +20,7 @@ export default (function() {
         let time = exec.time
 
         timeExecAfter[id] = {
-            stop: setInterval(function () {
+            stop: setInterval(function() {
                 time--;
                 buttons[exec.btn].innerHTML = `${text} <span style="color:#ffffff94"> (${time})</span>`;
                 if (time <= 0) {
@@ -42,13 +42,10 @@ export default (function() {
     (function onKeyDown() {
         document.addEventListener('keydown', (e) => {
 
+
             if (Object.keys(dialogs.dialogsOpen).length > 0) {
-                let id =
-                    dialogs.dialogsOpen[
-                        Object.keys(dialogs.dialogsOpen)[
-                        Object.keys(dialogs.dialogsOpen).length - 1
-                        ]
-                    ].id;
+                let id = dialogs.dialogsOpen[Object.keys(dialogs.dialogsOpen)[Object.keys(dialogs.dialogsOpen).length - 1]].id;
+
                 if (e.keyCode === 27) {
                     if (dialogs.keyEsc[id]) {
 
@@ -78,10 +75,10 @@ export default (function() {
                 let altKey = e.altKey ? "ALT+" : "";
                 let key = ctrlKey + shiftKey + altKey + e.keyCode;
 
-                if (dialogs.keyDown[id])
+                if (dialogs.onKeyDown[id]) {
                     try {
-                        if (dialogs.keyDown[id][key]) {
-                            dialogs.keyDown[id][key].call();
+                        if (dialogs.onKeyDown[id][key]) {
+                            dialogs.onKeyDown[id][key]();
                             if (e.preventDefault)
                                 e.preventDefault();
                             if (e.stopPropagation)
@@ -91,6 +88,7 @@ export default (function() {
                     } catch (e) {
                         return false;
                     }
+                }
             }
         })
     })()
@@ -122,6 +120,7 @@ export default (function() {
             document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('touchstart', touchstart);
 
         function mouseDown(e) {
+
             let outer = outerElent(elem)
             offset = {
                 x: e.pageX - elem.offsetLeft,
@@ -129,15 +128,16 @@ export default (function() {
                 w: window.innerWidth - (outer.width),
                 h: window.innerHeight - (outer.height)
             };
-            document.addEventListener('mouseup', mouseUp);
-            document.addEventListener('mousemove', mouseMove);
+
+            document.addEventListener('mouseup', mouseUp)
+            document.addEventListener('mousemove', mouseMove)
         }
 
         function mouseMove(e) {
-
             e.preventDefault();
             let top = e.pageY - offset.y;
             let left = e.pageX - offset.x;
+
             if (offset.h > top)
                 elem.style.top = top > 0 ? `${top}px` : 0
             if (offset.w > left)
@@ -145,8 +145,8 @@ export default (function() {
         }
 
         function mouseUp() {
-            document.removeEventListener('mouseup', mouseUp);
-            document.removeEventListener('mousemove', mouseMove);
+            document.removeEventListener('mouseup', mouseUp)
+            document.removeEventListener('mousemove', mouseMove)
         }
 
         function touchstart(e) {
@@ -155,8 +155,9 @@ export default (function() {
                 y: e.changedTouches[0].pageY - elem.offsetTop
             };
 
-            document.addEventListener('touchend',touchend);
-            document.addEventListener('touchmove',touchmove);
+            document.addEventListener('touchend', touchend)
+            document.addEventListener('touchmove', touchmove)
+
         }
 
         function touchmove(e) {
@@ -166,20 +167,51 @@ export default (function() {
             let top = e.changedTouches[0].pageY - offset.y;
             let left = (e.changedTouches[0].pageX - offset.x);
             if (hh > top)
-                elem.style.top = top > 0 ? top : 0
+                elem.style.top = top > 0 ? `${top}px` : 0
             if (ww > left)
-                elem.style.left = left > 0 ? left : 0
+                elem.style.left = left > 0 ? `${left}px` : 0
         }
 
         function touchend() {
-            document.removeEventListener('touchend',touchend);
-            document.removeEventListener('touchmove',touchmove);
+            document.removeEventListener('touchend', touchend)
+            document.removeEventListener('touchmove', touchmove)
         }
 
     }
 
 
     function create(params) {
+        let argDefalt = {
+            title: "&nbspMensagem do Sistema",
+            buttons: false,
+            onClose: false,
+            onOpen: false,
+            resize: false,
+            onCreate: false,
+            theme: "mofo-blue",
+            width: (window.innerWidth - window.innerWidth * 25 / 100),
+            height: (window.innerHeight - window.innerHeight * 25 / 100),
+            left: 0,
+            top: 0,
+            fullScreen: false,
+            closeBtn: true,
+            hash: false,
+            execAfter: false,
+            esc: true,
+            modal: true,
+            noTitleDisplay: false,
+            onKeyDown: {},
+            mouseup: false,
+            mousedown: false,
+            mousemove: false,
+            // classForOpen: false,
+            // classForClose: false,
+        };
+
+        if (params.el == undefined)
+            throw "The el property has not been informed!"
+
+        let arg = Object.assign(argDefalt, params)
 
         let ax = {
             header: '',
@@ -194,27 +226,30 @@ export default (function() {
             btnsFooter: {},
             setMain(arg) {
 
-                this.element = document.querySelector(arg.el);
-                let id = this.element.id;
-                this.element.classList.add("mofo-modal-content");
-                this.element.removeAttribute('id');
-                this.element.style.display = '';
+                this.element = document.querySelector(arg.el)
+                let id = this.element.id
+                this.element.classList.add("mofo-modal-content")
+                this.element.removeAttribute('id')
+                this.element.style.display = ''
 
                 this.main = document.createElement("div")
                 this.main.classList.add('mofo-modal-main')
                 this.main.classList.add(arg.theme);
                 this.main.setAttribute('id', id)
                 this.main.setAttribute('modal', arg.modal)
-                this.main.style.height = `${arg.height}px`;
                 this.main.style.left = `calc(50% - ${arg.width / 2}px)`
-                this.main.style.width = `${arg.width}px`;
                 this.main.style.top = `calc(50% - ${arg.height / 2}px)`
+                this.main.style.height = `${arg.height}px`;
+                this.main.style.width = `${arg.width}px`;
                 this.main.style.display = 'none';
                 this.main.style.resize = arg.resize ? "both" : ""
                 this.main.style.overflow = arg.resize ? "auto" : ""
-                this.element.parentNode.insertBefore(this.main, this.element);
-                //document.body.appendChild(this.main);
-                this.idElement = id;
+                this.element.parentNode.insertBefore(this.main, this.element)
+                    //document.body.appendChild(this.main);
+                this.idElement = id
+                    // if (arg.classForOpen) arg.classForOpen = arg.classForOpen.split(' ');
+                    // if (arg.classForClose) arg.classForClose = arg.classForClose.split(' ');
+
             },
             appendMain() {
                 this.main.appendChild(this.element);
@@ -227,16 +262,15 @@ export default (function() {
             setTextHeader(title) {
                 this.textHeader = document.createElement('div')
                 this.textHeader.innerHTML = title
-                this.header.appendChild(this.textHeader);
+                this.header.appendChild(this.textHeader)
             },
             setFooter() {
-                this.footer = document.createElement('div');
+                this.footer = document.createElement('div')
                 this.footer.classList.add("mofo-modal-foot")
-
             },
             setBtnFooter(buttons) {
                 for (let i in buttons) {
-                    let btn = document.createElement('button');
+                    let btn = document.createElement('button')
                     btn.innerHTML = buttons[i].html
                     if (buttons[i].class)
                         btn.classList.add(buttons[i].class)
@@ -254,25 +288,33 @@ export default (function() {
             setBtnClose() {
                 this.btnClose = document.createElement('button')
                 this.btnClose.classList.add('mofo-button-new')
+                this.btnClose.classList.add('mofo-close')
                 this.btnClose.classList.add('Close' + this.idElement)
                 this.btnClose.innerHTML = 'X'
             },
-            setKeyDown(idElement, keyDown) {
+            setKeyDown(idElement, onKeyDown) {
+                console.log(idElement, onKeyDown)
+
                 let keys = {}
-                for (let i in keyDown) {
-                    keys[String(keyDown[i].key).toUpperCase()] = { call: keyDown[i].call };
-                    dialogs.keyDown[idElement] = keys
+                for (let i in onKeyDown) {
+                    keys[String(i).toUpperCase()] = onKeyDown[i]
+                    dialogs.onKeyDown[idElement] = keys
                 }
             },
-            close(id) {
+            onClose(id) {
+                // if (arg.classForClose) {
+                //     arg.classForOpen.map(ln => this.element.classList.remove(ln))
+                //     arg.classForClose.map(ln => this.element.classList.add(ln))
+                // } else
                 this.element.style.display = 'none'
+
 
                 if (arg.modal)
                     document.getElementById(this.idElement + '_Modal').remove()
 
 
                 if (this.eventoClose[id])
-                    this.eventoClose[id]();
+                    this.eventoClose[id]()
 
                 if (dialogs.execAfter[id])
                     execAfterStop(id);
@@ -281,13 +323,13 @@ export default (function() {
                 if (Object.keys(dialogs.dialogsOpen).length === 0)
                     document.body.style.overflow = 'auto'
             },
-            open() {
+            onOpen() {
                 if (!(this.idElement in dialogs.dialogsOpen)) {
-                    dialogs.dialogsOpen[this.idElement] = { id: this.idElement };
-                    var zindex = Object.keys(dialogs.dialogsOpen).length + 998;
-                    this.element.style.zIndex = zindex + 1;
-                    document.body.style.overflow = 'hidden'
+                    dialogs.dialogsOpen[this.idElement] = { id: this.idElement }
 
+                    var zindex = Object.keys(dialogs.dialogsOpen).length + 998
+                    this.element.style.zIndex = zindex + 1
+                    document.body.style.overflow = 'hidden'
 
                     if (arg.modal) {
                         let overlay = document.createElement("div")
@@ -298,30 +340,34 @@ export default (function() {
                         document.body.appendChild(overlay)
                     }
 
-                    this.element.style.display = '';
+                    // if (arg.classForOpen) {
+                    //     arg.classForClose.map(ln => this.element.classList.remove(ln))
+                    //     arg.classForOpen.map(ln => this.element.classList.add(ln))
+                    // } else
+                    this.element.style.display = ''
 
                     if (this.idElement in this.eventoOpen)
-                        this.eventoOpen[this.idElement]();
+                        this.eventoOpen[this.idElement]()
 
                     if (this.idElement in dialogs.execAfter)
-                        execAfterFunc(this.btnsFooter, this.idElement);
+                        execAfterFunc(this.btnsFooter, this.idElement)
                 }
             },
             fullScreen() {
-                this.element.style.width = '100%';
-                this.element.style.height = '100%';
-                this.element.style.top = 15;
-                this.element.style.left = 0;
+                this.element.style.width = '100%'
+                this.element.style.height = '100%'
+                this.element.style.top = 0
+                this.element.style.left = 0
                 this.element.style.borderRadius = 0
                 this.element.style.maxHeight = 'none'
                 this.element.style.maxWidth = 'none'
             },
             destroy() {
 
-                delete this.eventoClose[this.idElement];
-                delete this.eventoOpen[this.idElement];
-                delete dialogs.keyDown[this.idElement];
-                delete dialogs.keyEsc[this.idElement];
+                delete this.eventoClose[this.idElement]
+                delete this.eventoOpen[this.idElement]
+                delete dialogs.onKeyDown[this.idElement]
+                delete dialogs.keyEsc[this.idElement]
 
                 this.element.removeAttribute('class')
                 this.element.removeAttribute('modal')
@@ -338,40 +384,13 @@ export default (function() {
             },
         }
 
-        let argDefalt = {
-            title: "&nbspMensagem do Sistema",
-            buttons: {},
-            close: {},
-            open: {},
-            resize: false,
-            openOnce: false,
-            theme: "mofo-blue",
-            width: (window.innerWidth - window.innerWidth * 25 / 100),
-            height: (window.innerHeight - window.innerHeight * 25 / 100),
-            left: 0,
-            top: 0,
-            fullScreen: false,
-            closeBtn: true,
-            hash: false,
-            execAfter: {},
-            esc: true,
-            modal: true,
-            noTitleDisplay: false,
-            keyDown: {},
-            mouseup: false,
-            mousedown: false,
-            mousemove: false
-        };
-
-        let arg = Object.assign(argDefalt, params);
-
         ax.setMain(arg)
 
         ax.setHeader()
         ax.setTextHeader(arg.title)
         ax.setBtnClose()
 
-        dialogs.keyEsc[ax.idElement] = arg.closeBtn;
+        dialogs.keyEsc[ax.idElement] = arg.closeBtn
 
         dialogs.keyEsc[ax.idElement] = arg.esc
 
@@ -383,39 +402,39 @@ export default (function() {
         ax.setFooter();
         ax.setBtnFooter(arg.buttons)
 
-        ax.setKeyDown(ax.idElement, arg.keyDown)
+        ax.setKeyDown(ax.idElement, arg.onKeyDown)
 
 
-        if (arg.open.length !== undefined)
-            ax.eventoOpen[ax.idElement] = arg.open;
+        if (arg.onOpen)
+            ax.eventoOpen[ax.idElement] = arg.onOpen
 
 
-        if (arg.close.length !== undefined)
-            ax.eventoClose[ax.idElement] = arg.close;
+        if (arg.onClose)
+            ax.eventoClose[ax.idElement] = arg.onClose
 
 
         if (arg.closeBtn) {
             ax.header.appendChild(ax.btnClose)
-            ax.element.querySelector(".Close" + ax.idElement).addEventListener('click', () => ax.close(ax.idElement))
+            ax.element.querySelector(".Close" + ax.idElement).addEventListener('click', () => ax.onClose(ax.idElement))
         }
 
         if (arg.fullScreen)
             ax.fullScreen()
 
         if (arg.top != '0')
-            ax.element.style.top = arg.top
+            ax.element.style.top = `${arg.top}px`
 
-        if (arg.left != "0")
-            ax.element.style.left = arg.left;
+        if (arg.left != '0')
+            ax.element.style.left = `${arg.left}px`
 
-        if (arg.openOnce)
-            arg.openOnce()
+        if (arg.onCreate)
+            arg.onCreate()
 
-        if (Object.keys(arg.execAfter).length > 0)
+        if (arg.execAfter)
             dialogs.execAfter[ax.idElement] = arg.execAfter;
 
 
-        this.focus = (nameBtn) => ax.btnsFooter[nameBtn].focus()
+        this.btnFocus = (nameBtn) => ax.btnsFooter[nameBtn].focus()
 
         this.disable = (nameBtn) => ax.btnsFooter[nameBtn].disabled = true
 
@@ -429,9 +448,9 @@ export default (function() {
 
         this.destroy = () => ax.destroy()
 
-        this.open = () => ax.open()
+        this.open = () => ax.onOpen()
 
-        this.close = () => ax.close(ax.idElement)
+        this.close = () => ax.onClose(ax.idElement)
 
         dragEl(ax.element);
     }
