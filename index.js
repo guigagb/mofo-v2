@@ -4,9 +4,11 @@ const minhaDiv = new mofo.create({
     el: '#minhaDiv',
     height: 200,
     width: 400,
-    resize: true,
-    theme: 'mofo-dark',
-    // fullScreen: true,
+    theme: 'mofo-dark-square',
+    execAfter: {
+        time: 10,
+        btn: 'confirma'
+    },
     onOpen: (params) => {
         // console.log('oiiii');
     },

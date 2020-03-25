@@ -181,7 +181,7 @@ export default (function() {
 
 
     function create(params) {
-        let argDefalt = {
+        let argDefault = {
             title: "&nbspMensagem do Sistema",
             buttons: false,
             onClose: false,
@@ -211,7 +211,7 @@ export default (function() {
         if (params.el == undefined)
             throw "The el property has not been informed!"
 
-        let arg = Object.assign(argDefalt, params)
+        let arg = Object.assign(argDefault, params)
 
         let ax = {
             header: '',

@@ -44,10 +44,9 @@ Em seu html declare o arquivo js.
     <html lang="pt-BR">
     <head>
         <title>Mofo v2.0</title>
-        <link rel="stylesheet" href="mofoV2.css">
     </head>
     <body>
-        <div id="minhaDiv" style="display: none">Hello World!</div>
+        <div id="minhaDiv">Hello World!</div>
         <script src="index.js" type="module"></script>
     </body>
     </html>
@@ -139,6 +138,17 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
         <td>Boolean</td>
         <td>True</td>
     </tr>
+    <tr>
+        <td>execAfter</td>
+        <td>Pressiona um botão após determinado tempo.
+        <pre>execAfter({
+            time: 10,           // tempo em segundos
+            btn: 'confirma'     // nome do btn
+        })</pre>
+        </td>
+        <td>Object</td>
+        <td></td>
+    </tr>
 </table>
 
 ## Temas
@@ -148,11 +158,13 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
         <th>mofo-blue</th>
         <th>mofo-opacity</th>
         <th>mofo-dark</th>
+        <th>mofo-dark-square</th>
     </tr>
     <tr>
         <td><img src="images/mofo.png"></td>
         <td><img src="images/mofo-opacity.png"></td>
         <td><img src="images/mofo-dark.png"></td>
+        <td><img src="images/mofo-dark-square.png"></td>
     </tr>
 </table>
 
