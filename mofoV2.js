@@ -199,7 +199,7 @@ export default (function() {
             execAfter: false,
             esc: true,
             modal: true,
-            noTitleDisplay: false,
+            titleDisplay: true,
             onKeyDown: {},
             mouseup: false,
             mousedown: false,
@@ -394,7 +394,7 @@ export default (function() {
 
         dialogs.keyEsc[ax.idElement] = arg.esc
 
-        if (!arg.noTitleDisplay)
+        if (arg.titleDisplay)
             ax.main.appendChild(ax.header)
 
         ax.appendMain()

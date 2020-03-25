@@ -5,19 +5,21 @@ const minhaDiv = new mofo.create({
     height: 200,
     width: 400,
     theme: 'mofo-dark-square',
+    closeBtn: false,
+    titleDisplay: true,
+    // modal:false,
     execAfter: {
         time: 10,
-        btn: 'confirma'
+        btn: 'btn1'
     },
     onOpen: (params) => {
         // console.log('oiiii');
     },
     buttons: {
-        confirma: {
+        btn1: {
             html: 'Confirma',
-            click: (e) => {
-                console.log(e);
-            }
+            class: 'left',
+            click: (e)=>{}
         }
     },
     // onKeyDown: {

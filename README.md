@@ -72,82 +72,119 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
 
 <table>
     <tr>
-        <th>Propriedades</th>
-        <th>Descrição</th>
-        <th>Tipo</th>
-        <th>Default</th>
+        <th align="center">Propriedades</th>
+        <th align="center">Descrição</th>
+        <th align="center">Tipo</th>
+        <th align="center">Default</th>
     </tr>
     <tr>
         <td>el</td>
         <td>Id do elemento (div) onde será instanciado o mofo. <strong>(Obrigatório)</strong></td>
-        <td>String</td>
-        <td></td>
+        <td align="center">String</td>
+        <td align="center"></td>
     </tr>
     <tr>
         <td>title</td>
         <td>Título da janela.</td>
-        <td>String</td>
-        <td>Mensagem do Sistema</td>
+        <td align="center">String</td>
+        <td align="center">Mensagem do Sistema</td>
     </tr>
     <tr>
         <td>width</td>
         <td>Largura da janela.</td>
-        <td>Numeric</td>
-        <td>innerWidth - 25%</td>
+        <td align="center">Numeric</td>
+        <td align="center">innerWidth - 25%</td>
     </tr>
     <tr>
         <td>height</td>
         <td>Altura da janela.</td>
-        <td>Numeric</td>
-        <td>innerHeight - 25%</td>
+        <td align="center">Numeric</td>
+        <td align="center">innerHeight - 25%</td>
     </tr>
     <tr>
         <td>resize</td>
         <td>Propriedade que informa se poderá redimensionar a janela.</td>
-        <td>Boolean</td>
-        <td>False</td>
+        <td align="center">Boolean</td>
+        <td align="center">False</td>
     </tr>
     <tr>
         <td>theme</td>
         <td>Tema que será utilizado na janela, temas disponíveis:<br>
         mofo-blue, mofo-opacity, mofo-dark </td>
-        <td>String</td>
-        <td>mofo-blue</td>
+        <td align="center">String</td>
+        <td align="center">mofo-blue</td>
     </tr>
     <tr>
         <td>left</td>
         <td>Define a posição (left) onde a janela será aberta.</td>
-        <td>Numeric</td>
-        <td></td>
+        <td align="center">Numeric</td>
+        <td align="center"></td>
     </tr>
     <tr>
         <td>top</td>
         <td>Define a posição (top) onde a janela será aberta.</td>
-        <td>Numeric</td>
-        <td></td>
+        <td align="center">Numeric</td>
+        <td align="center"></td>
     </tr>
     <tr>
         <td>fullscreen</td>
         <td>Caso queira que a janela abre em tela cheia, informe true.</td>
-        <td>Boolean</td>
-        <td>False</td>
+        <td align="center">Boolean</td>
+        <td align="center">False</td>
     </tr>
     <tr>
         <td>closeBtn</td>
         <td>Mostra o botão fechar no canto superior direito da janela</td>
-        <td>Boolean</td>
-        <td>True</td>
+        <td align="center">Boolean</td>
+        <td align="center">True</td>
+    </tr>
+    <tr>
+        <td>esc</td>
+        <td>Determina se o botão esc pode fechar o modal.</td>
+        <td align="center">Boolean</td>
+        <td align="center">True</td>
+    </tr>
+    <tr>
+        <td>modal</td>
+        <td>Limita o acesso apenas a janela aberta.</td>
+        <td align="center">Boolean</td>
+        <td align="center">True</td>
+    </tr>
+    <tr>
+        <td>titleDisplay</td>
+        <td>Possibilita a visualização ou não da barra de título da janela.</td>
+        <td align="center">Boolean</td>
+        <td align="center">True</td>
+    </tr>
+    <tr>
+        <td>buttons</td>
+        <td>Botões que irão aparecer na janela.<pre>
+buttons:{
+    btn1:  // identificador do botão
+    {
+        html: 'Confirma', //texto do botão
+        class: 'left',    // class do botão (opcional)
+        click: (e)=>{
+            // função que será executada ao 
+            clicar no botão
+        }   
+    },
+    btn2:{ // pode ser adicionado n botões }
+}
+        </pre></td>
+        <td align="center">Object</td>
+        <td align="center"></td>
     </tr>
     <tr>
         <td>execAfter</td>
         <td>Pressiona um botão após determinado tempo.
-        <pre>execAfter({
+        <pre>execAfter{
             time: 10,           // tempo em segundos
             btn: 'confirma'     // nome do btn
-        })</pre>
+        }</pre>
         </td>
-        <td>Object</td>
-        <td></td>
+        <td align="center">Object</td>
+        <td align="center"></td>
     </tr>
 </table>
 
