@@ -1,6 +1,6 @@
 # Mofo v2.0
 
-Mofo é um modal inspirado inicialmente no showModal do Delphi. 
+O mofo é uma janela de diálogo personalizada inspirada inicialmente no showModal do Delphi. 
 Ele usa nativamente javascript em sua construção.
 
 ## Instalação
@@ -63,6 +63,23 @@ No javascript iremos instanciar o objeto da seguinte forma:
 //// Abre o modal
 minhaDiv.open();
 ```
+
+## Temas
+
+<table>
+    <tr>
+        <th>mofo-blue</th>
+        <th>mofo-opacity</th>
+        <th>mofo-dark</th>
+        <th>mofo-dark-square</th>
+    </tr>
+    <tr>
+        <td><img src="images/mofo.png"></td>
+        <td><img src="images/mofo-opacity.png"></td>
+        <td><img src="images/mofo-dark.png"></td>
+        <td><img src="images/mofo-dark-square.png"></td>
+    </tr>
+</table>
 
 ## Métodos
 
@@ -157,6 +174,36 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
         <td align="center">True</td>
     </tr>
     <tr>
+        <td>onCreate</td>
+        <td>Função que será executada ao instanciar o objeto, só executa uma vez.</td>
+        <td align="center">Function</td>
+        <td align="center"></td>
+    </tr>
+    <tr>
+        <td>onOpen</td>
+        <td>Função que será executada sempre que abrir a janela.</td>
+        <td align="center">Function</td>
+        <td align="center"></td>
+    </tr>
+    <tr>
+        <td>onClose</td>
+        <td>Função que será executa sempre que fechar a janela.</td>
+        <td align="center">Function</td>
+        <td align="center"></td>
+    </tr>
+    <tr>
+        <td>onKeyDown</td>
+        <td>Permite a janela escutar pressionamento de teclas e executar uma função para as teclas determinadas.<pre>
+onKeyDown:{
+    13: (e)=>{ console.log('você apertou enter') },    
+    32: (e)=>{ console.log('você apertou espaço') },    
+    'CTRL+13': (e)=>{ console.log('você apertou ctrl + enter') }
+}
+        </td>
+        <td align="center">Object</td>
+        <td align="center"></td>
+    </tr>
+    <tr>
         <td>buttons</td>
         <td>Botões que irão aparecer na janela.<pre>
 buttons:{
@@ -185,23 +232,6 @@ buttons:{
         </td>
         <td align="center">Object</td>
         <td align="center"></td>
-    </tr>
-</table>
-
-## Temas
-
-<table>
-    <tr>
-        <th>mofo-blue</th>
-        <th>mofo-opacity</th>
-        <th>mofo-dark</th>
-        <th>mofo-dark-square</th>
-    </tr>
-    <tr>
-        <td><img src="images/mofo.png"></td>
-        <td><img src="images/mofo-opacity.png"></td>
-        <td><img src="images/mofo-dark.png"></td>
-        <td><img src="images/mofo-dark-square.png"></td>
     </tr>
 </table>
 

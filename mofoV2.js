@@ -114,7 +114,7 @@ export default (function() {
         }
 
         if (document.getElementById(elem.id).querySelector('.mofo-modal-head'))
-            document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('mousedown', mouseDown);
+            document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('mouseDown', mouseDown);
 
         if (document.getElementById(elem.id).querySelector('.mofo-modal-head'))
             document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('touchstart', touchstart);
@@ -129,8 +129,8 @@ export default (function() {
                 h: window.innerHeight - (outer.height)
             };
 
-            document.addEventListener('mouseup', mouseUp)
-            document.addEventListener('mousemove', mouseMove)
+            document.addEventListener('mouseUp', mouseUp)
+            document.addEventListener('mouseMove', mouseMove)
         }
 
         function mouseMove(e) {
@@ -145,8 +145,8 @@ export default (function() {
         }
 
         function mouseUp() {
-            document.removeEventListener('mouseup', mouseUp)
-            document.removeEventListener('mousemove', mouseMove)
+            document.removeEventListener('mouseUp', mouseUp)
+            document.removeEventListener('mouseMove', mouseMove)
         }
 
         function touchstart(e) {
@@ -201,9 +201,9 @@ export default (function() {
             modal: true,
             titleDisplay: true,
             onKeyDown: {},
-            mouseup: false,
-            mousedown: false,
-            mousemove: false,
+            mouseUp: false,
+            mouseDown: false,
+            mouseMove: false,
             // classForOpen: false,
             // classForClose: false,
         };

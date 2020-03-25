@@ -8,9 +8,10 @@ const minhaDiv = new mofo.create({
     closeBtn: false,
     titleDisplay: true,
     // modal:false,
-    execAfter: {
-        time: 10,
-        btn: 'btn1'
+    onKeyDown: {
+        13: (e) => { console.log('você apertou enter') },
+        32: (e) => { console.log('você apertou espaço') },
+        'CTRL+13': (e) => { console.log('você apertou ctrl + enter') }
     },
     onOpen: (params) => {
         // console.log('oiiii');
@@ -19,7 +20,7 @@ const minhaDiv = new mofo.create({
         btn1: {
             html: 'Confirma',
             class: 'left',
-            click: (e)=>{}
+            click: (e) => { }
         }
     },
     // onKeyDown: {
