@@ -3,6 +3,14 @@
 O mofo é uma janela de diálogo personalizada inspirada inicialmente no showModal do Delphi. 
 Ele usa nativamente javascript em sua construção.
 
+[Instalação](#instalação)<br>
+[Importando](#importando)<br>
+[Modo de Uso](#modo-de-uso)<br>
+[Temas](#temas)<br>
+[Parâmetros Create](#parametros-create)<br>
+[Métodos](#metodos)<br>
+[Desenvolvedores](#desenvolvedores)<br>
+
 ## Instalação
 
 Clone o repositório em um diretório local.
@@ -36,7 +44,7 @@ Em seu html declare o arquivo js.
     let mofo = (function() { // descomentar essa linha
 ```
 
-## Modo de uso
+## Modo de Uso
 
 É necessário uma div no seu html com um id
 ```html
@@ -53,11 +61,11 @@ Em seu html declare o arquivo js.
 ```
 No javascript iremos instanciar o objeto da seguinte forma:
 
+<h3>Create</h3>
+
 ```javascript
-    const minhaDiv = new mofo.create({
-    el: '#minhaDiv',
-    height: 200,
-    width: 400
+const minhaDiv = new mofo.create({
+    el: '#minhaDiv'
 })
 
 //// Abre o modal
@@ -81,15 +89,13 @@ minhaDiv.open();
     </tr>
 </table>
 
-## Métodos
+## Parâmetro Create
 
-<h3>Create</h3>
-
-Método responsável pela instância do mofo. Recebe um objeto como parâmetro que pode ter as seguintes propriedades passadas:
+Create é responsável por instanciar o mofo. Recebe um objeto como parâmetro que pode ter as seguintes propriedades passadas:
 
 <table>
     <tr>
-        <th align="center">Propriedades</th>
+        <th align="center">Propriedade</th>
         <th align="center">Descrição</th>
         <th align="center">Tipo</th>
         <th align="center">Default</th>
@@ -110,13 +116,13 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
         <td>width</td>
         <td>Largura da janela.</td>
         <td align="center">Numeric</td>
-        <td align="center">innerWidth - 25%</td>
+        <td align="center">75%</td>
     </tr>
     <tr>
         <td>height</td>
         <td>Altura da janela.</td>
         <td align="center">Numeric</td>
-        <td align="center">innerHeight - 25%</td>
+        <td align="center">75%</td>
     </tr>
     <tr>
         <td>resize</td>
@@ -144,7 +150,7 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
         <td align="center"></td>
     </tr>
     <tr>
-        <td>fullscreen</td>
+        <td>fullScreen</td>
         <td>Caso queira que a janela abre em tela cheia, informe true.</td>
         <td align="center">Boolean</td>
         <td align="center">False</td>
@@ -195,11 +201,11 @@ Método responsável pela instância do mofo. Recebe um objeto como parâmetro q
         <td>onKeyDown</td>
         <td>Permite a janela escutar pressionamento de teclas e executar uma função para as teclas determinadas.<pre>
 onKeyDown:{
-    13: (e)=>{ console.log('você apertou enter') },    
-    32: (e)=>{ console.log('você apertou espaço') },    
-    'CTRL+13': (e)=>{ console.log('você apertou ctrl + enter') }
-}
-        </td>
+    13: (e)=>{console.log('enter pressionado')},    
+    'ctrl+13': (e)=>{console.log('ctrl+enter pressionado')}
+    'ctrl+shift+alt+13': (e)=>{
+        console.log('ctrl+shift+alt+13 pressionado')}
+    }</pre></td>
         <td align="center">Object</td>
         <td align="center"></td>
     </tr>
@@ -224,7 +230,7 @@ buttons:{
     </tr>
     <tr>
         <td>execAfter</td>
-        <td>Pressiona um botão após determinado tempo.
+        <td>Invoca o clique do botão após determinado tempo.
         <pre>execAfter{
             time: 10,           // tempo em segundos
             btn: 'confirma'     // nome do btn
@@ -235,7 +241,62 @@ buttons:{
     </tr>
 </table>
 
+## Métodos
+    
+Esses métodos serão utilizados na variável instanciada. Ex.:<br>
+```javascript
+    minhaDiv.close();
+```
+
+<table>
+    <tr>
+        <th>Método</th>
+        <th align="center">Parâmetro</th>
+        <th>Descrição</th>
+    <tr>
+    <tr>
+        <td>btnFocus</td>
+        <td align="center">nameBtn: String</td>
+        <td>Coloca o foco no botão passado por parâmetro.</td>
+    </tr>
+    <tr>
+        <td>btnDisable</td>
+        <td align="center">nameBtn: String</td>
+        <td>Desabilita o botão passado por parâmetro.</td>
+    </tr>
+    <tr>
+        <td>btnEnable</td>
+        <td align="center">nameBtn: String</td>
+        <td>Habilita o botão passado por parâmetro.</td>
+    </tr>
+    <tr>
+        <td>btnClick</td>
+        <td align="center">nameBtn: String</td>
+        <td>Clica no botão passado por parâmetro.</td>
+    </tr>
+    <tr>
+        <td>setTitle</td>
+        <td align="center">title: String</td>
+        <td>Altera o título da janela.</td>
+    </tr>
+    <tr>
+        <td>open</td>
+        <td align="center">nenhum</td>
+        <td>Abre a janela de diálogo.</td>
+    </tr>
+    <tr>
+        <td>close</td>
+        <td align="center">nenhum</td>
+        <td>Fecha a janela de diálogo.</td>
+    </tr>
+    <tr>
+        <td>destroy</td>
+        <td align="center">nenhum</td>
+        <td>Destrói a instância criada.</td>
+    </tr>
+</table>
+
 ## Desenvolvedores
 
-Francisco Alves<br>
-Guilherme Trindade
+[Francisco Alves](https://github.com/dffrancisco)<br>
+[Guilherme Trindade](https://github.com/guigagb)

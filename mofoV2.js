@@ -201,9 +201,9 @@ export default (function() {
             modal: true,
             titleDisplay: true,
             onKeyDown: {},
-            mouseUp: false,
-            mouseDown: false,
-            mouseMove: false,
+            // mouseUp: false,
+            // mouseDown: false,
+            // mouseMove: false,
             // classForOpen: false,
             // classForClose: false,
         };
@@ -436,15 +436,15 @@ export default (function() {
 
         this.btnFocus = (nameBtn) => ax.btnsFooter[nameBtn].focus()
 
-        this.disable = (nameBtn) => ax.btnsFooter[nameBtn].disabled = true
+        this.btnDisable = (nameBtn) => ax.btnsFooter[nameBtn].disabled = true
 
-        this.enable = (nameBtn) => ax.btnsFooter[nameBtn].disabled = false
+        this.btnEnable = (nameBtn) => ax.btnsFooter[nameBtn].disabled = false
 
-        this.clickBtn = (nameBtn) => ax.btnsFooter[nameBtn].click()
-
-        this.setTitle = (title) => ax.textHeader.innerHTML = title
+        this.btnClick = (nameBtn) => ax.btnsFooter[nameBtn].click()
 
         this.btnFooter = (nameBtn) => ax.btnsFooter[nameBtn]
+        
+        this.setTitle = (title) => ax.textHeader.innerHTML = title
 
         this.destroy = () => ax.destroy()
 

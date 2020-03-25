@@ -7,11 +7,14 @@ const minhaDiv = new mofo.create({
     theme: 'mofo-dark-square',
     closeBtn: false,
     titleDisplay: true,
-    // modal:false,
+    modal:false,
     onKeyDown: {
         13: (e) => { console.log('você apertou enter') },
         32: (e) => { console.log('você apertou espaço') },
         'CTRL+13': (e) => { console.log('você apertou ctrl + enter') }
+    },
+    mouseDown: function () {
+        console.log('oi');
     },
     onOpen: (params) => {
         // console.log('oiiii');
@@ -20,7 +23,7 @@ const minhaDiv = new mofo.create({
         btn1: {
             html: 'Confirma',
             class: 'left',
-            click: (e) => { }
+            click: (e) => { console.log('oi');}
         }
     },
     // onKeyDown: {
@@ -36,8 +39,7 @@ const minhaDiv = new mofo.create({
 minhaDiv.open();
 
 function openModal() {
-    console.log(mofo.countIsOpen());
-    console.log(mofo.dialogs);
+    minhaDiv.setTitle('btn1');
 }
 
 window.openModal = openModal;
