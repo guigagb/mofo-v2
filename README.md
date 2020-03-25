@@ -13,17 +13,27 @@ Clone o repositório em um diretório local.
 
 ## Importando
 
-É necessário declarar a folha de estilo .css no seu html.
-
-```html
-    <link rel="stylesheet" href="mofoV2.css">
-```
-
+<h3>Forma 1</h3>
 
 Para usar o mofo você deve chamá-lo em seu arquivo .js através de import.
 
 ```javascript
     import mofo from './mofo-v2';
+```
+
+<h3>Forma 2</h3>
+
+Em seu html declare o arquivo js.
+
+```html
+    <script src="./mofo-v2.js"></script>
+```
+
+É necessário comentar/descomentar as linhas no arquivo mofo-v2.js:
+
+```javascript
+    export default (function() { //comentar essa linha
+    let mofo = (function() { // descomentar essa linha
 ```
 
 ## Modo de uso
@@ -59,7 +69,7 @@ minhaDiv.open();
 
 <h3>Create</h3>
 
-Método responsável pela instância do mofo.
+Método responsável pela instância do mofo. Recebe um objeto como parâmetro que pode ter as seguintes propriedades passadas:
 
 <table>
     <tr>
@@ -70,7 +80,7 @@ Método responsável pela instância do mofo.
     </tr>
     <tr>
         <td>el</td>
-        <td>Id do elemento (div) onde será instanciado o mofo. (Obrigatório)</td>
+        <td>Id do elemento (div) onde será instanciado o mofo. <strong>(Obrigatório)</strong></td>
         <td>String</td>
         <td></td>
     </tr>
@@ -110,6 +120,24 @@ Método responsável pela instância do mofo.
         <td>Define a posição (left) onde a janela será aberta.</td>
         <td>Numeric</td>
         <td></td>
+    </tr>
+    <tr>
+        <td>top</td>
+        <td>Define a posição (top) onde a janela será aberta.</td>
+        <td>Numeric</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>fullscreen</td>
+        <td>Caso queira que a janela abre em tela cheia, informe true.</td>
+        <td>Boolean</td>
+        <td>False</td>
+    </tr>
+    <tr>
+        <td>closeBtn</td>
+        <td>Mostra o botão fechar no canto superior direito da janela</td>
+        <td>Boolean</td>
+        <td>True</td>
     </tr>
 </table>
 

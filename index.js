@@ -5,10 +5,10 @@ const minhaDiv = new mofo.create({
     height: 200,
     width: 400,
     resize: true,
-    left: 100,
     theme: 'mofo-dark',
+    // fullScreen: true,
     onOpen: (params) => {
-        console.log('oiiii');
+        // console.log('oiiii');
     },
     buttons: {
         confirma: {

@@ -1,5 +1,9 @@
-//export default (function() {
-let mofo = (function() {
+export default (function() {
+// let mofo = (function() {
+    var style = document.createElement("link");
+    style.setAttribute("href", "mofoV2.css");
+    style.setAttribute("rel", "stylesheet");
+    document.head.appendChild(style);
 
     let timeExecAfter = {};
     let dialogs = {
@@ -49,7 +53,6 @@ let mofo = (function() {
                 if (e.keyCode === 27) {
                     if (dialogs.keyEsc[id]) {
 
-                        // if (arg.modal)
                         if (document.getElementById(id + '_Modal'))
                             document.getElementById(id + '_Modal').remove()
 
@@ -63,9 +66,6 @@ let mofo = (function() {
                         delete dialogs.dialogsOpen[id];
                         if (Object.keys(dialogs.dialogsOpen).length === 0)
                             document.body.style.overflow = 'auto'
-
-                        //  hashMofoModal = false;
-                        // window.location.hash = "";
                     }
                     return false;
                 }
