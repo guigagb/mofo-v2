@@ -23,10 +23,14 @@ Clone o repositório em um diretório local.
 
 <h3>Forma 1</h3>
 
-Para usar o mofo você deve chamá-lo em seu arquivo .js através de import.
+Em seu html declare o css:
+```html
+    <link rel="stylesheet" href="./mofoV2.css">
+```
 
+Para usar o mofo você deve chamá-lo em seu arquivo .js através de import.
 ```javascript
-    import mofo from './mofo-v2';
+    import mofo from './mofoV2';
 ```
 
 <h3>Forma 2</h3>
@@ -34,10 +38,11 @@ Para usar o mofo você deve chamá-lo em seu arquivo .js através de import.
 Em seu html declare o arquivo js.
 
 ```html
-    <script src="./mofo-v2.js"></script>
+    <link rel="stylesheet" href="./mofoV2.css">
+    <script src="./mofoV2.js"></script>
 ```
 
-É necessário comentar/descomentar as linhas no arquivo mofo-v2.js:
+É necessário comentar/descomentar as linhas no arquivo mofoV2.js:
 
 ```javascript
     export default (function() { //comentar essa linha
@@ -64,12 +69,12 @@ No javascript iremos instanciar o objeto da seguinte forma:
 <h3>Create</h3>
 
 ```javascript
-const minhaDiv = new mofo.create({
-    el: '#minhaDiv'
-})
+    const minhaDiv = new mofo.create({
+        el: '#minhaDiv'
+    })
 
-//// Abre o modal
-minhaDiv.open();
+    //// Abre o modal
+    minhaDiv.open();
 ```
 
 ## Temas

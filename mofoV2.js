@@ -1,9 +1,14 @@
 export default (function() {
-// let mofo = (function() {
-    var style = document.createElement("link");
-    style.setAttribute("href", "mofoV2.css");
-    style.setAttribute("rel", "stylesheet");
-    document.head.appendChild(style);
+    // let mofo = (function() {
+
+    function setCss(path) {
+        path = path == undefined ? './mofoV2.css' : `${path}mofoV2.css`
+        let style = document.createElement("link");
+        style.setAttribute("href", path);
+        style.setAttribute("rel", "stylesheet");
+        document.head.appendChild(style);
+
+    }
 
     let timeExecAfter = {};
     let dialogs = {
@@ -114,7 +119,7 @@ export default (function() {
         }
 
         if (document.getElementById(elem.id).querySelector('.mofo-modal-head'))
-            document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('mouseDown', mouseDown);
+            document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('mousedown', mouseDown);
 
         if (document.getElementById(elem.id).querySelector('.mofo-modal-head'))
             document.getElementById(elem.id).querySelector('.mofo-modal-head').addEventListener('touchstart', touchstart);
@@ -129,8 +134,8 @@ export default (function() {
                 h: window.innerHeight - (outer.height)
             };
 
-            document.addEventListener('mouseUp', mouseUp)
-            document.addEventListener('mouseMove', mouseMove)
+            document.addEventListener('mouseup', mouseUp)
+            document.addEventListener('mousemove', mouseMove)
         }
 
         function mouseMove(e) {
@@ -145,8 +150,8 @@ export default (function() {
         }
 
         function mouseUp() {
-            document.removeEventListener('mouseUp', mouseUp)
-            document.removeEventListener('mouseMove', mouseMove)
+            document.removeEventListener('mouseup', mouseUp)
+            document.removeEventListener('mousemove', mouseMove)
         }
 
         function touchstart(e) {
@@ -201,9 +206,6 @@ export default (function() {
             modal: true,
             titleDisplay: true,
             onKeyDown: {},
-            // mouseUp: false,
-            // mouseDown: false,
-            // mouseMove: false,
             // classForOpen: false,
             // classForClose: false,
         };
@@ -293,7 +295,6 @@ export default (function() {
                 this.btnClose.innerHTML = 'X'
             },
             setKeyDown(idElement, onKeyDown) {
-                console.log(idElement, onKeyDown)
 
                 let keys = {}
                 for (let i in onKeyDown) {
@@ -385,7 +386,6 @@ export default (function() {
         }
 
         ax.setMain(arg)
-
         ax.setHeader()
         ax.setTextHeader(arg.title)
         ax.setBtnClose()
@@ -394,45 +394,35 @@ export default (function() {
 
         dialogs.keyEsc[ax.idElement] = arg.esc
 
-        if (arg.titleDisplay)
-            ax.main.appendChild(ax.header)
+        if (arg.titleDisplay) ax.main.appendChild(ax.header)
 
         ax.appendMain()
 
         ax.setFooter();
+
         ax.setBtnFooter(arg.buttons)
 
         ax.setKeyDown(ax.idElement, arg.onKeyDown)
 
+        if (arg.onOpen) ax.eventoOpen[ax.idElement] = arg.onOpen
 
-        if (arg.onOpen)
-            ax.eventoOpen[ax.idElement] = arg.onOpen
+        if (arg.onClose) ax.eventoClose[ax.idElement] = arg.onClose
 
+        if (arg.titleDisplay)
+            if (arg.closeBtn) {
+                ax.header.appendChild(ax.btnClose)
+                ax.element.querySelector(".Close" + ax.idElement).addEventListener('click', () => ax.onClose(ax.idElement))
+            }
 
-        if (arg.onClose)
-            ax.eventoClose[ax.idElement] = arg.onClose
+        if (arg.fullScreen) ax.fullScreen()
 
+        if (arg.top != '0') ax.element.style.top = `${arg.top}px`
 
-        if (arg.closeBtn) {
-            ax.header.appendChild(ax.btnClose)
-            ax.element.querySelector(".Close" + ax.idElement).addEventListener('click', () => ax.onClose(ax.idElement))
-        }
+        if (arg.left != '0') ax.element.style.left = `${arg.left}px`
 
-        if (arg.fullScreen)
-            ax.fullScreen()
+        if (arg.onCreate) arg.onCreate()
 
-        if (arg.top != '0')
-            ax.element.style.top = `${arg.top}px`
-
-        if (arg.left != '0')
-            ax.element.style.left = `${arg.left}px`
-
-        if (arg.onCreate)
-            arg.onCreate()
-
-        if (arg.execAfter)
-            dialogs.execAfter[ax.idElement] = arg.execAfter;
-
+        if (arg.execAfter) dialogs.execAfter[ax.idElement] = arg.execAfter;
 
         this.btnFocus = (nameBtn) => ax.btnsFooter[nameBtn].focus()
 
@@ -442,9 +432,9 @@ export default (function() {
 
         this.btnClick = (nameBtn) => ax.btnsFooter[nameBtn].click()
 
-        this.btnFooter = (nameBtn) => ax.btnsFooter[nameBtn]
-        
         this.setTitle = (title) => ax.textHeader.innerHTML = title
+
+        this.btnFooter = (nameBtn) => ax.btnsFooter[nameBtn]
 
         this.destroy = () => ax.destroy()
 
@@ -458,6 +448,7 @@ export default (function() {
     return {
         create: create,
         dialogs: dialogs,
-        countIsOpen: countIsOpen
+        countIsOpen: countIsOpen,
+        setCss: setCss
     }
 })()
