@@ -1,4 +1,4 @@
-export default (function() {
+export default (function () {
     // let mofo = (function() {
 
     function setCss(path) {
@@ -29,7 +29,7 @@ export default (function() {
         let time = exec.time
 
         timeExecAfter[id] = {
-            stop: setInterval(function() {
+            stop: setInterval(function () {
                 time--;
                 buttons[exec.btn].innerHTML = `${text} <span style="color:#ffffff94"> (${time})</span>`;
                 if (time <= 0) {
@@ -195,7 +195,7 @@ export default (function() {
             onCreate: false,
             theme: "mofo-blue",
             width: (window.innerWidth - window.innerWidth * 25 / 100),
-            height: (window.innerHeight - window.innerHeight * 25 / 100),
+            height: (window.innerHeight - window.innerWidth * 25 / 100),
             left: 0,
             top: 0,
             fullScreen: false,
@@ -247,10 +247,19 @@ export default (function() {
                 this.main.style.resize = arg.resize ? "both" : ""
                 this.main.style.overflow = arg.resize ? "auto" : ""
                 this.element.parentNode.insertBefore(this.main, this.element)
-                    //document.body.appendChild(this.main);
+                //document.body.appendChild(this.main);
                 this.idElement = id
-                    // if (arg.classForOpen) arg.classForOpen = arg.classForOpen.split(' ');
-                    // if (arg.classForClose) arg.classForClose = arg.classForClose.split(' ');
+
+                if(document.documentElement.scrollHeight > window.innerHeight){
+                    window.addEventListener('scroll', (e) => {
+                        var top = window.scrollY;
+                        var height = arg.fullScreen ? 0 : (window.innerHeight - arg.height) / 2;
+                        console.log(top,window.innerHeight, arg.height);
+                        this.element.style.top = top + height + 'px';
+                    })
+                }
+                // if (arg.classForOpen) arg.classForOpen = arg.classForOpen.split(' ');
+                // if (arg.classForClose) arg.classForClose = arg.classForClose.split(' ');
 
             },
             appendMain() {
@@ -414,7 +423,7 @@ export default (function() {
                 ax.element.querySelector(".Close" + ax.idElement).addEventListener('click', () => ax.onClose(ax.idElement))
             }
 
-        if (arg.fullScreen) ax.fullScreen()
+        if (arg.fullScreen) ax.fullScreen();
 
         if (arg.top != '0') ax.element.style.top = `${arg.top}px`
 
