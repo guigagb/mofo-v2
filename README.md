@@ -7,8 +7,8 @@ Ele usa nativamente javascript em sua construção.
 [Importando](#importando)<br>
 [Modo de Uso](#modo-de-uso)<br>
 [Temas](#temas)<br>
-[Parâmetros Create](#parametros-create)<br>
-[Métodos](#metodos)<br>
+[Parâmetro Create](#parâmetro-create)<br>
+[Métodos](#métodos)<br>
 [Desenvolvedores](#desenvolvedores)<br>
 
 ## Instalação
