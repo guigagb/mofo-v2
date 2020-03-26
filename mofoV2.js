@@ -195,7 +195,7 @@ export default (function () {
             onCreate: false,
             theme: "mofo-blue",
             width: (window.innerWidth - window.innerWidth * 25 / 100),
-            height: (window.innerHeight - window.innerWidth * 25 / 100),
+            height: (window.innerHeight - window.innerHeight * 25 / 100),
             left: 0,
             top: 0,
             fullScreen: false,
