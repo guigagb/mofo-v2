@@ -1,5 +1,6 @@
 export default (function() {
 
+    // let mofo = (function() {
     const btnProperty = {
         html: 'text button',
         class: 'class button',
@@ -13,30 +14,6 @@ export default (function() {
         'mofo-dark-square': 4
     }
 
-    const argDefault = {
-        el: '',
-        title: "&nbspMensagem do Sistema",
-        buttons: false,
-        onClose: false,
-        onOpen: false,
-        resize: false,
-        onCreate: false,
-        theme: "mofo-blue",
-        width: (window.innerWidth - window.innerWidth * 25 / 100),
-        height: (window.innerHeight - window.innerHeight * 25 / 100),
-        left: 0,
-        top: 0,
-        fullScreen: false,
-        closeBtn: true,
-        hash: false,
-        execAfter: false,
-        esc: true,
-        modal: true,
-        titleDisplay: true,
-        onKeyDown: {},
-        // classForOpen: false,
-        // classForClose: false,
-    };
 
     function setCss(path) {
         path = path == undefined ? './mofoV2.css' : `${path}mofoV2.css`
@@ -221,7 +198,7 @@ export default (function() {
 
     }
 
-    function validarParams(params) {
+    function validarParams(argDefault, params) {
 
         if (params.el == undefined)
             throw "The el property has not been informed."
@@ -230,7 +207,8 @@ export default (function() {
             throw "The el property must start with '#' or '.'"
 
         Object.keys(params).map(param => {
-            if (argDefault[param] === undefined) throw "The property " + param + " not is a valid property.";
+            if (argDefault[param] === undefined)
+                throw "The property " + param + " not is a valid property.";
         })
 
         if (params.width && isNaN(params.width))
@@ -327,8 +305,32 @@ export default (function() {
     }
 
     function create(params) {
+        const argDefault = {
+            el: '',
+            title: "&nbspMensagem do Sistema",
+            buttons: false,
+            onClose: false,
+            onOpen: false,
+            resize: false,
+            onCreate: false,
+            theme: "mofo-blue",
+            width: (window.innerWidth - window.innerWidth * 25 / 100),
+            height: (window.innerHeight - window.innerHeight * 25 / 100),
+            left: 0,
+            top: 0,
+            fullScreen: false,
+            closeBtn: true,
+            hash: false,
+            execAfter: false,
+            esc: true,
+            modal: true,
+            titleDisplay: true,
+            onKeyDown: {},
+            // classForOpen: false,
+            // classForClose: false,
+        };
 
-        validarParams(params);
+        validarParams(argDefault, params);
 
         let arg = Object.assign(argDefault, params)
 
@@ -472,8 +474,8 @@ export default (function() {
                     //     arg.classForClose.map(ln => this.element.classList.remove(ln))
                     //     arg.classForOpen.map(ln => this.element.classList.add(ln))
                     // } else
-                    let h = (window.innerHeight - window.innerHeight * 25 / 100)
-                    this.element.style.top = `calc(50% - ${arg.height}px)`
+                    // let h = (window.innerHeight - window.innerHeight * 25 / 100)
+                    // this.element.style.top = `calc(50% - ${arg.height}px)`
                     this.element.style.display = ''
 
                     if (this.idElement in this.eventoOpen)
