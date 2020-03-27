@@ -1,5 +1,19 @@
-export default (function () {
+export default (function() {
+
     // let mofo = (function() {
+    const btnProperty = {
+        html: 'text button',
+        class: 'class button',
+        click: 'function button',
+    }
+
+    const themes = {
+        'mofo-blue': 1,
+        'mofo-dark': 2,
+        'mofo-opacity': 3,
+        'mofo-dark-square': 4
+    }
+
 
     function setCss(path) {
         path = path == undefined ? './mofoV2.css' : `${path}mofoV2.css`
@@ -29,7 +43,7 @@ export default (function () {
         let time = exec.time
 
         timeExecAfter[id] = {
-            stop: setInterval(function () {
+            stop: setInterval(function() {
                 time--;
                 buttons[exec.btn].innerHTML = `${text} <span style="color:#ffffff94"> (${time})</span>`;
                 if (time <= 0) {
@@ -184,9 +198,115 @@ export default (function () {
 
     }
 
+    function validarParams(argDefault, params) {
+
+        if (params.el == undefined)
+            throw "The el property has not been informed."
+
+        if (params.el[0] !== '#' && params.el[0] !== '.')
+            throw "The el property must start with '#' or '.'"
+
+        Object.keys(params).map(param => {
+            if (argDefault[param] === undefined)
+                throw "The property " + param + " not is a valid property.";
+        })
+
+        if (params.width && isNaN(params.width))
+            throw "The property width is not a number."
+
+        if (params.height && isNaN(params.height))
+            throw "The property height is not a number."
+
+        if (params.resize && params.resize !== true && params.resize !== false)
+            throw "The property resize is not a boolean."
+
+        if (params.theme && themes[params.theme] === undefined)
+            throw "The theme selected is not a theme valid. " +
+                "Valid values (mofo-blue, mofo-dark, mofo-opacity, mofo-dark-square)";
+
+        if (params.left && isNaN(params.left))
+            throw "The property left is not a number."
+
+        if (params.top && isNaN(params.top))
+            throw "The property top is not a number."
+
+        if (params.fullScreen && params.fullScreen !== true && params.fullScreen !== false)
+            throw "The property fullScreen is not a boolean."
+
+        if (params.closeBtn && params.closeBtn !== true && params.closeBtn !== false)
+            throw "The property closeBtn is not a boolean."
+
+        if (params.esc && params.esc !== true && params.esc !== false)
+            throw "The property esc is not a boolean."
+
+        if (params.modal && params.modal !== true && params.modal !== false)
+            throw "The property modal is not a boolean."
+
+        if (params.titleDisplay && params.titleDisplay !== true && params.titleDisplay !== false)
+            throw "The property titleDisplay is not a boolean."
+
+        if (params.onCreate && typeof(params.onCreate) !== 'function')
+            throw "The onCreate is not a function."
+
+        if (params.onOpen && typeof(params.onOpen) !== 'function')
+            throw "The onOpen is not a function."
+
+        if (params.onClose && typeof(params.onClose) !== 'function')
+            throw "The onClose is not a function."
+
+        if (params.onKeyDown && typeof(params.onKeyDown) !== 'object')
+            throw "The onKeyDown is not a object."
+
+        if (params.onKeyDown && Object.keys(params.onKeyDown).length === 0)
+            throw "The onKeyDown is not a valid object."
+
+        if (params.onKeyDown)
+            Object.keys(params.onKeyDown).map(key => {
+                if (typeof(params.onKeyDown[key]) !== 'function')
+                    throw `The property ${key} from onKeyDown is not a function.`;
+            })
+
+        if (params.execAfter && typeof(params.execAfter) !== 'object')
+            throw "The execAfter is not a object."
+
+        if (params.execAfter && (params.execAfter.time === undefined || isNaN(params.execAfter.time)))
+            throw "The property time from execAfter is not valid."
+
+        if (params.execAfter && params.execAfter.btn === undefined)
+            throw "The property btn from execAfter is not found."
+
+        if (params.execAfter && params.buttons[params.execAfter.btn] === undefined)
+            throw `The button property '${params.execAfter.btn}' reported in execAfter was not found inside buttons.`
+
+        if (params.buttons && typeof(params.buttons) !== 'object')
+            throw "The buttons is not a object."
+
+        if (params.buttons && Object.keys(params.buttons).length === 0)
+            throw "The buttons is not a valid object."
+
+        if (params.buttons)
+            Object.keys(params.buttons).map(btn => {
+
+                if (typeof(params.buttons[btn]) !== 'object')
+                    throw `The property '${btn}' from buttons is not a object.`;
+
+                if (Object.keys(params.buttons[btn]).length === 0)
+                    throw `The property '${btn}' from buttons is not a valid object.`;
+
+                Object.keys(params.buttons[btn]).map(key => {
+                    if (btnProperty[key] === undefined)
+                        throw `The property '${key}' from button '${btn}' is not valid property. Valids property: 'html','class','click'`;
+                });
+
+                if (typeof(params.buttons[btn].click) !== 'function')
+                    throw `The property click from button ${btn} is not a valid function or has not been informed`
+            })
+
+    }
 
     function create(params) {
-        let argDefault = {
+        const argDefault = {
+            el: '',
             title: "&nbspMensagem do Sistema",
             buttons: false,
             onClose: false,
@@ -210,8 +330,7 @@ export default (function () {
             // classForClose: false,
         };
 
-        if (params.el == undefined)
-            throw "The el property has not been informed!"
+        validarParams(argDefault, params);
 
         let arg = Object.assign(argDefault, params)
 
@@ -247,17 +366,18 @@ export default (function () {
                 this.main.style.resize = arg.resize ? "both" : ""
                 this.main.style.overflow = arg.resize ? "auto" : ""
                 this.element.parentNode.insertBefore(this.main, this.element)
-                //document.body.appendChild(this.main);
+                    //document.body.appendChild(this.main);
                 this.idElement = id
 
-                if(document.documentElement.scrollHeight > window.innerHeight){
-                    window.addEventListener('scroll', (e) => {
-                        var top = window.scrollY;
-                        var height = arg.fullScreen ? 0 : (window.innerHeight - arg.height) / 2;
-                        console.log(top,window.innerHeight, arg.height);
-                        this.element.style.top = top + height + 'px';
-                    })
-                }
+                // console.log(document.documentElement.scrollHeight);
+                // if (document.documentElement.scrollHeight > window.innerHeight) {
+                //     window.addEventListener('scroll', (e) => {
+                //         var top = window.scrollY;
+                //         var height = arg.fullScreen ? 0 : (window.innerHeight - arg.height) / 2;
+                //         // console.log(top, window.innerHeight, arg.height);
+                //         this.element.style.top = top + height + 'px';
+                //     })
+                // }
                 // if (arg.classForOpen) arg.classForOpen = arg.classForOpen.split(' ');
                 // if (arg.classForClose) arg.classForClose = arg.classForClose.split(' ');
 
@@ -354,6 +474,8 @@ export default (function () {
                     //     arg.classForClose.map(ln => this.element.classList.remove(ln))
                     //     arg.classForOpen.map(ln => this.element.classList.add(ln))
                     // } else
+                    // let h = (window.innerHeight - window.innerHeight * 25 / 100)
+                    // this.element.style.top = `calc(50% - ${arg.height}px)`
                     this.element.style.display = ''
 
                     if (this.idElement in this.eventoOpen)
