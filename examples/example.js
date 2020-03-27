@@ -1,7 +1,20 @@
 import mofo from '../mofoV2.js';
 
 const exemplo1 = new mofo.create({
-    el: '#exemplo1'
+    el: '#exemplo1',
+    height: '500',
+    resize: true,
+    theme: 'mofo-dark-square',
+    execAfter: {
+        time: 10,
+        btn: 'confirma'
+    },
+    buttons: {
+        confirma: {
+            html: 'Confirma',
+            click: () => {}
+        }
+    }
 });
 
 const exemplo2 = new mofo.create({
@@ -42,15 +55,15 @@ const exemplo7 = new mofo.create({
     buttons: {
         cancelar: {
             html: 'Cancelar',
-            class:  'left',
-            click: ()=>{
+            class: 'left',
+            click: () => {
                 exemplo7.close();
             }
         },
         confirmar: {
             html: 'Confirmar',
             class: 'right',
-            click: ()=>{
+            click: () => {
                 alert('Botão confirmar pressionado!');
             }
         }
@@ -75,9 +88,10 @@ const exemplo9 = new mofo.create({
         time: 15,
         btn: 'fechar'
     },
-    buttons:{
+    buttons: {
         teste: {
-            html: 'teste'
+            html: 'teste',
+            click: () => {}
         },
         fechar: {
             html: 'Fechar',
@@ -92,50 +106,50 @@ const exemplo10 = new mofo.create({
     el: '#exemplo10',
     title: 'Exemplo 10',
     onKeyDown: {
-        '13': (e) => {alert('Enter pressionado!')},
-        'ctrl+13': (e) => {alert('ctrl + enter pressionado!')},
-        'ctrl+shift+13': (e) => {alert('ctrl + shift + Enter pressionado!')},
-        'ctrl+shift+alt+13': (e) => {alert('ctrl + shift + alt + Enter pressionado!')},
+        '13': (e) => { alert('Enter pressionado!') },
+        'ctrl+13': (e) => { alert('ctrl + enter pressionado!') },
+        'ctrl+shift+13': (e) => { alert('ctrl + shift + Enter pressionado!') },
+        'ctrl+shift+alt+13': (e) => { alert('ctrl + shift + alt + Enter pressionado!') },
     }
 });
 
-function openExemplo1(){
+function openExemplo1() {
     exemplo1.open();
 }
 
-function openExemplo2(){
+function openExemplo2() {
     exemplo2.open();
 }
 
-function openExemplo3(){
+function openExemplo3() {
     exemplo3.open();
 }
 
-function openExemplo4(){
+function openExemplo4() {
     exemplo4.open();
 }
 
-function openExemplo5(){
+function openExemplo5() {
     exemplo5.open();
 }
 
-function openExemplo6(){
+function openExemplo6() {
     exemplo6.open();
 }
 
-function openExemplo7(){
+function openExemplo7() {
     exemplo7.open();
 }
 
-function openExemplo8(){
+function openExemplo8() {
     exemplo8.open();
 }
 
-function openExemplo9(){
+function openExemplo9() {
     exemplo9.open();
 }
 
-function openExemplo10(){
+function openExemplo10() {
     exemplo10.open();
 }
 
@@ -149,3 +163,4 @@ window.openExemplo7 = openExemplo7;
 window.openExemplo8 = openExemplo8;
 window.openExemplo9 = openExemplo9;
 window.openExemplo10 = openExemplo10;
+window.mofo = mofo;
