@@ -16,7 +16,7 @@ Ele usa nativamente javascript em sua construção.
 Clone o repositório em um diretório local.
 
 ```sh
-    git clone git@github.com:guigagb/mofo-v2.git
+    git clone https://github.com/guigagb/mofo-v2.git
 ```
 
 ## Importando
